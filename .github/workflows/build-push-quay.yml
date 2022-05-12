@@ -1,0 +1,69 @@
+name: build-push-quay
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/Dockerfile*'
+
+  workflow_dispatch:
+
+jobs:
+
+  docker_matrix:
+
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.all }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get Dockerfiles
+        uses: jitterbit/get-changed-files@v1
+        id: set_matrix
+        with:
+          format: json
+
+  build:
+
+    needs: docker_matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dockerfile: ${{ fromJson(needs.docker_matrix.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get image name
+        id: image_name
+        run: |
+          echo -n ::set-output name=IMAGE_NAME::
+          NAME=$(echo ${{ matrix.dockerfile }} | awk -F '[.-]' '{print $2}')
+          echo "${NAME}"
+
+      - name: Get image tags
+        id: image_tags
+        run: |
+          echo -n ::set-output name=IMAGE_TAGS::
+          TAGS=$(echo ${{ matrix.dockerfile }} | awk -F '[-]' '{print $2}')
+          TAGS+=('latest')
+          ( IFS=$','; echo "${TAGS[*]}" )
+
+      - name: Build and publish image to Quay
+        uses: docker/build-push-action@v1
+        with:
+          path: ${{ steps.image_name.outputs.IMAGE_NAME }}
+          dockerfile: ${{ matrix.dockerfile }}
+          registry: ${{ secrets.REGISTRY_SERVER }}
+          repository: ${{ secrets.REGISTRY_NAMESPACE }}/${{ steps.image_name.outputs.IMAGE_NAME }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          tags: "${{ steps.image_tags.outputs.IMAGE_TAGS }}"
+
+      - name: Test image
+        run: |
+          TAG=$(echo ${{ matrix.dockerfile }} | awk -F '[-]' '{print $2}')
+          echo "Running: docker run ${{ steps.image_name.outputs.IMAGE_NAME }}:${TAG}"
+          docker run ${{ secrets.REGISTRY_SERVER }}/${{ secrets.REGISTRY_NAMESPACE }}/${{ steps.image_name.outputs.IMAGE_NAME }}:${TAG}
