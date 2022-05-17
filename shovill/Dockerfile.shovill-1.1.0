@@ -86,7 +86,7 @@ RUN wget zlib.net/pigz/pigz-${pigz_version}.tar.gz \
 RUN wget -O shovill-${shovill_version}.tar.gz https://github.com/tseemann/shovill/archive/v${shovill_version}.tar.gz \
 && tar -xzf shovill-${shovill_version}.tar.gz -C /usr/local/bin \
 && chmod +x /usr/local/bin/shovill-${shovill_version}/bin/shovill \
-&& rm *.tar.gz *.tar *.tgz *.zip
+&& rm *.tar.gz *.tar *.zip
 
 RUN locale-gen en_GB.UTF-8
 
