@@ -38,10 +38,10 @@ RUN wget http://cab.spbu.ru/files/release${SPAdes_version}/SPAdes-${SPAdes_versi
 
 RUN wget -O KMC.tar.gz https://github.com/refresh-bio/KMC/releases/download/v${KMC_version}/KMC${KMC_version}.linux.tar.gz \
 && tar -xzf KMC.tar.gz -C /usr/local/bin \
-&& wget https://www.ebi.ac.uk/~zerbino/velvet/velvet_${velvet_version}.tgz \
-&& tar -xzf velvet_${velvet_version}.tgz -C /usr/local/bin \
-&& make -C /usr/local/bin/velvet_${velvet_version} \
-&& chmod +x /usr/local/bin/velvet_${velvet_version}/velvet* \
+&& wget -O velvet-${velvet_version}.tar.gz https://github.com/dzerbino/velvet/archive/refs/tags/v${velvet_version}.tar.gz \
+&& tar -xzf velvet-${velvet_version}.tar.gz -C /usr/local/bin \
+&& make -C /usr/local/bin/velvet-${velvet_version} \
+&& chmod +x /usr/local/bin/velvet-${velvet_version}/velvet* \
 && wget -O Lighter-${Lighter_version}.tar.gz  https://github.com/mourisl/Lighter/archive/v${Lighter_version}.tar.gz \
 && tar -xzf Lighter-${Lighter_version}.tar.gz -C /usr/local/bin \
 && make -C /usr/local/bin/Lighter-${Lighter_version} \
@@ -94,6 +94,6 @@ ENV LANG en_GB.UTF-8 \
 LANGUAGE en_GB:en \
 LC_ALL en_GB.UTF-8
 
-ENV PATH ${PATH}:/usr/local/bin/SPAdes-${SPAdes_version}-Linux/bin:/usr/local/bin/MEGAHIT-${MEGAHIT_version}-Linux-x86_64-static/bin:/usr/local/bin/KMC${KMC_version}.linux:/usr/local/bin/velvet_${velvet_version}:/usr/local/bin/Lighter-${Lighter_version}:/usr/local/bin/bwa-${bwa_version}:/usr/local/bin/seqtk-${seqtk_version}:/usr/local/bin/pigz-${pigz_version}:/usr/local/bin/shovill-${shovill_version}/bin
+ENV PATH ${PATH}:/usr/local/bin/SPAdes-${SPAdes_version}-Linux/bin:/usr/local/bin/MEGAHIT-${MEGAHIT_version}-Linux-x86_64-static/bin:/usr/local/bin/KMC${KMC_version}.linux:/usr/local/bin/velvet-${velvet_version}:/usr/local/bin/Lighter-${Lighter_version}:/usr/local/bin/bwa-${bwa_version}:/usr/local/bin/seqtk-${seqtk_version}:/usr/local/bin/pigz-${pigz_version}:/usr/local/bin/shovill-${shovill_version}/bin
 
 CMD ["shovill", "--help"]
