@@ -30,8 +30,8 @@ RUN wget -O trim_galore.tar.gz https://github.com/FelixKrueger/TrimGalore/archiv
 
 RUN locale-gen en_GB.UTF-8
 
-ENV LANG en_GB.UTF-8 \
-LANGUAGE en_GB:en \
-LC_ALL en_GB.UTF-8
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
 
 CMD ["trim_galore", "--help"]

@@ -91,9 +91,9 @@ RUN wget -O shovill-${shovill_version}.tar.gz https://github.com/tseemann/shovil
 
 RUN locale-gen en_GB.UTF-8
 
-ENV LANG en_GB.UTF-8 \
-LANGUAGE en_GB:en \
-LC_ALL en_GB.UTF-8
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
 
 ENV PATH ${PATH}:/usr/local/bin/SPAdes-${SPAdes_version}-Linux/bin:/usr/local/bin/MEGAHIT-${MEGAHIT_version}-Linux-x86_64-static/bin:/usr/local/bin/KMC${KMC_version}.linux:/usr/local/bin/velvet-${velvet_version}:/usr/local/bin/Lighter-${Lighter_version}:/usr/local/bin/bwa-${bwa_version}:/usr/local/bin/seqtk-${seqtk_version}:/usr/local/bin/pigz-${pigz_version}:/usr/local/bin/shovill-${shovill_version}/bin
 
