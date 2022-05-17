@@ -49,6 +49,7 @@ RUN wget -O KMC.tar.gz https://github.com/refresh-bio/KMC/releases/download/v${K
 
 RUN wget -O bwa-${bwa_version}.tar.gz https://github.com/lh3/bwa/archive/v${bwa_version}.tar.gz \
 && tar -xzf bwa-${bwa_version}.tar.gz -C /usr/local/bin \
+&& sed -i '/^const/s/^/extern /' /usr/local/bin/bwa-${bwa_version}/rle.h \
 && make -C /usr/local/bin/bwa-${bwa_version} \
 && chmod +x /usr/local/bin/bwa-${bwa_version}/bwa \
 && wget ccb.jhu.edu/software/FLASH/FLASH-${FLASH_version}-Linux-x86_64.tar.gz \
