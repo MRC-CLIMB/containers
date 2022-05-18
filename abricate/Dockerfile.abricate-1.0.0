@@ -1,0 +1,33 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="abricate" \
+software.version="1.0.0" \
+about.summary="Call antimicrobial resistance and virulence using abricate" \
+about.home="https://github.com/tseemann/abricate"
+
+ENV abricate_version=1.0.0
+
+ENV PACKAGES="wget curl parallel bioperl ncbi-blast+ gzip unzip locales locales-all" \
+PACKAGES2="libjson-perl libtext-csv-perl libpath-tiny-perl libfile-slurp-perl liblwp-protocol-https-perl libwww-perl"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES $PACKAGES2 \
+&& wget -O abricate-${abricate_version}.tar.gz https://github.com/tseemann/abricate/archive/v${abricate_version}.tar.gz \
+&& tar -xzf abricate-${abricate_version}.tar.gz -C /usr/local/bin \
+&& chmod +x /usr/local/bin/abricate-${abricate_version}/bin/abricate \
+&& rm abricate-${abricate_version}.tar.gz \
+&& wget -O /usr/local/bin/any2fasta https://raw.githubusercontent.com/tseemann/any2fasta/master/any2fasta \
+&& chmod +x /usr/local/bin/any2fasta
+
+ENV PATH ${PATH}:/usr/local/bin/abricate-${abricate_version}/bin
+
+RUN locale-gen en_GB.UTF-8
+
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
+
+RUN abricate --setupdb
+
+CMD ["abricate", "--help"]
