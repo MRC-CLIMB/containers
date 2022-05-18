@@ -1,0 +1,35 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="prokka" \
+software.version="1.14.5" \
+about.summary="Annotate bacterial, archaeal and viral genomes using prokka" \
+about.home="https://github.com/tseemann/prokka"
+
+ENV prokka_version=1.14.5
+
+ENV PACKAGES="libdatetime-perl libdigest-md5-perl default-jre bioperl make wget curl parallel locales locales-all"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& yes | cpan List::Util \
+&& wget -O prokka-${prokka_version}.tar.gz https://github.com/tseemann/prokka/archive/v${prokka_version}.tar.gz \
+&& tar -xzf prokka-${prokka_version}.tar.gz \
+&& prokka-${prokka_version}/bin/prokka --setupdb \
+&& chmod +x prokka-${prokka_version}/bin/prokka \
+&& mv prokka-${prokka_version} /usr/local/bin \
+&& rm prokka-${prokka_version}.tar.gz \
+&& wget ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools/converters/by_program/tbl2asn/linux64.tbl2asn.gz \
+&& gunzip linux64.tbl2asn.gz \
+&& mv linux64.tbl2asn /usr/local/bin/tbl2asn \
+&& chmod +x /usr/local/bin/tbl2asn
+
+RUN locale-gen en_GB.UTF-8
+
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
+
+ENV PATH ${PATH}:/usr/local/bin/prokka-${prokka_version}/bin
+
+CMD ["prokka", "--help"]
