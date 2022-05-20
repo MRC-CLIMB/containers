@@ -32,6 +32,7 @@ jobs:
     strategy:
       matrix:
         dockerfile: ${{ fromJson(needs.docker_matrix.outputs.matrix) }}
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v3
