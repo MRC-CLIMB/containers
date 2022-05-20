@@ -8,7 +8,7 @@ about.home="https://github.com/tseemann/prokka"
 
 ENV prokka_version=1.14.5
 
-ENV PACKAGES="libdatetime-perl libdigest-md5-perl default-jre bioperl make wget curl parallel locales locales-all"
+ENV PACKAGES="libdatetime-perl libdigest-md5-perl default-jre bioperl build-essential wget curl parallel locales locales-all"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
