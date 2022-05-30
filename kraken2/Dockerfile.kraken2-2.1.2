@@ -1,0 +1,27 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="kraken2" \
+software.version="2.1.2" \
+about.summary="Taxonomic sequence classification using kraken2" \
+about.home="https://github.com/DerrickWood/kraken2"
+
+ENV kraken2_version=2.1.2
+
+ENV PACKAGES="wget curl parallel build-essential rsync unzip ncbi-blast+ locales locales-all"
+
+RUN apt-get update && apt-get install -y $PACKAGES \
+&& wget -O kraken2-${kraken2_version}.tar.gz https://github.com/DerrickWood/kraken2/archive/refs/tags/v${kraken2_version}.tar.gz \
+&& tar -xzf kraken2-${kraken2_version}.tar.gz \
+&& rm kraken2-${kraken2_version}.tar.gz \
+&& cd kraken2-${kraken2_version} \
+&& ./install_kraken2.sh /usr/local/bin \
+&& cd ..
+
+RUN locale-gen en_GB.UTF-8
+
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
+
+CMD ["kraken2", "--help"]
