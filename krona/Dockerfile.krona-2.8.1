@@ -1,0 +1,29 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="krona" \
+software.version="2.8.1" \
+about.summary="Interactively explore metagenomes using krona" \
+about.home="https://github.com/marbl/Krona"
+
+ENV krona_version=2.8.1
+
+ENV PACKAGES="wget parallel make perl curl locales locales-all"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& wget -O krona.tar.gz https://github.com/marbl/Krona/archive/v${krona_version}.tar.gz \
+&& tar -xzf krona.tar.gz \
+&& mkdir -p Krona-${krona_version}/KronaTools/taxonomy \
+&& cd /Krona-${krona_version}/KronaTools \
+&& ./install.pl \
+&& ./updateTaxonomy.sh \
+&& cd ..
+
+RUN locale-gen en_GB.UTF-8
+
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
+
+CMD ["ktImportTaxonomy"]
