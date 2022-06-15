@@ -9,7 +9,7 @@ about.home="https://github.com/DaehwanKimLab/centrifuge"
 ENV centrifuge_version=1.0.4
 
 ENV PACKAGES="wget curl parallel make g++ gcc libbz2-dev liblzma-dev zlib1g-dev perl locales locales-all" \
-PYTHON="python python-pip"
+PYTHON="python3 python3-pip"
 
 RUN apt-get update \
 && apt-get -y install $PACKAGES $PYTHON \
