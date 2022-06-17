@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:buster
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="mykrobe" \
@@ -9,7 +9,7 @@ about.home="https://github.com/Mykrobe-tools/mykrobe"
 ENV mykrobe_version=0.11.0
 
 ENV PACKAGES="wget parallel curl rsync git build-essential r-base-core zlib1g-dev libncurses5-dev libz-dev liblzma-dev libbz2-dev" \
-PYTHON="python3.9 python3.9-dev python3-pip"
+PYTHON="python3.7 python3.7-dev python3-pip"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES $PYTHON \
@@ -21,7 +21,7 @@ RUN apt-get update \
 && cd mykrobe-${mykrobe_version} \
 && pip3 install -r requirements.txt \
 && pip3 install . \
-&& ln -s /usr/local/bin/mccortex/bin/mccortex31 /usr/local/lib/python3.9/dist-packages/mykrobe/cortex/mccortex31 \
+&& ln -s /usr/local/bin/mccortex/bin/mccortex31 /usr/local/lib/python3.7/dist-packages/mykrobe/cortex/mccortex31 \
 && wget -O /usr/local/bin/json_to_tsv.py https://raw.githubusercontent.com/iqbal-lab/Mykrobe-predictor/master/scripts/json_to_tsv.py \
 && chmod +x /usr/local/bin/json_to_tsv.py \
 && wget -O mykrobe-data.tar.gz http://s3.climb.ac.uk/mykrobe/mykrobe-data.tgz \
