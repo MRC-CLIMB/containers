@@ -8,6 +8,8 @@ about.home="https://github.com/marbl/Mash"
 
 ENV mash_version=2.3
 
+ENV PACKAGES="curl wget parallel"
+
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
 && curl -fsSL "https://github.com/marbl/Mash/releases/download/v${mash_version}/mash-Linux64-v${mash_version}.tar" | tar -x \
