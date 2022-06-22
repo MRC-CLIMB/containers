@@ -1,0 +1,17 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="mash" \
+software.version="2.3" \
+about.summary="Genome distance estimation using mash" \
+about.home="https://github.com/marbl/Mash"
+
+ENV mash_version=2.3
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL "https://github.com/marbl/Mash/releases/download/v${mash_version}/mash-Linux64-v${mash_version}.tar" | tar -x \
+&& mv mash-Linux64-v${mash_version}/mash /usr/local/bin \
+&& rm -r mash-Linux*
+
+CMD ["mash"]
