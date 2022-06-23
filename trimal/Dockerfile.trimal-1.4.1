@@ -1,0 +1,22 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="trimal" \
+software.version="1.4.1" \
+about.summary="Alignment trimming using trimal" \
+about.home="https://github.com/inab/trimal/"
+
+ENV trimal_version=1.4.1
+
+ENV PACKAGES="wget curl parallel build-essential"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL "https://github.com/scapella/trimal/archive/v${trimal_version}.tar.gz" | tar xz \
+&& cd trimal-${trimal_version}/source \
+&& make \
+&& cp trimal /usr/local/bin \
+&& cd / \
+&& rm -rf trimal-${trimal_version}
+
+CMD ["trimal", "--help"]
