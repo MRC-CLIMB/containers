@@ -16,4 +16,4 @@ RUN apt-get update \
 && make install -C Prodigal-${prodigal_version} \
 && rm -r Prodigal-${prodigal_version}
 
-CMD ["prodigal", "--help"]
+CMD ["prodigal", "-h"]
