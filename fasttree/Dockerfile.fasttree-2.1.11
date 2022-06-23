@@ -1,0 +1,19 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="fasttree" \
+software.version="2.1.11" \
+about.summary="Produce phylogenetic trees with FastTree" \
+about.home="http://www.microbesonline.org/fasttree/"
+
+ENV fasttree_version=2.1.11
+
+ENV PACKAGES="curl wget parallel gcc"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL "http://www.microbesonline.org/fasttree/FastTree-${fasttree_version}.c" -o FastTree-${fasttree_version}.c  \
+&& gcc -DOPENMP -fopenmp -O3 -finline-functions -funroll-loops -Wall -o /usr/local/bin/FastTreeMP FastTree-${fasttree_version}.c -lm \
+&& rm FastTree-${fasttree_version}.c
+
+CMD ["FastTreeMP", "-help"]
