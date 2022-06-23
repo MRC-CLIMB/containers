@@ -1,0 +1,24 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="bandage" \
+software.version="0.9.0" \
+about.summary="Interact with assembly graphs using bandage" \
+about.home="https://github.com/rrwick/Bandage"
+
+ENV bandage_version=0.9.0
+
+ENV PACKAGES="curl wget parallel build-essential qtbase5-dev libqt5svg5-dev" \
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL https://github.com/rrwick/Bandage/archive/v${bandage_version}.tar.gz | tar -xz \
+&& cd Bandage-${bandage_version} \
+&& export QT_SELECT=5 \
+&& qmake 'QMAKE_CFLAGS_ISYSTEM=-I' Bandage.pro \
+&& make \
+&& make install \
+&& cd .. \
+&& rm -rf Bandage-${bandage_version}
+
+CMD ["Bandage", "--help"]
