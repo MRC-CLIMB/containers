@@ -8,7 +8,7 @@ about.home="https://github.com/rrwick/Bandage"
 
 ENV bandage_version=0.9.0
 
-ENV PACKAGES="curl wget parallel build-essential qtbase5-dev libqt5svg5-dev" \
+ENV PACKAGES="curl wget parallel build-essential qtbase5-dev libqt5svg5-dev"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
