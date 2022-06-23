@@ -17,4 +17,4 @@ RUN apt-get update \
 && ./install_krakenuniq.sh -j /usr/local/bin \
 && cd .. && rm -rf krakenuniq
 
-CMD ["krakenuniq"]
+CMD ["krakenuniq", "--help"]
