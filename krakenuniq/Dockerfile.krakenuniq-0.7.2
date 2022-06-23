@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="krakenuniq" \
@@ -8,7 +8,7 @@ about.home="https://github.com/fbreitwieser/krakenuniq"
 
 ENV krakenuniq_version=0.7.2
 
-ENV PACKAGES="curl wget parallel make g++ git zlib1g zlib1g-dev libgomp1"
+ENV PACKAGES="curl wget parallel make g++ git zlib1g zlib1g-dev libbz2-dev libgomp1"
 
 RUN apt-get update \
 && apt-get -y install $PACKAGES \
