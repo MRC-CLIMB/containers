@@ -1,0 +1,19 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="prodigal" \
+software.version="2.6.3" \
+about.summary="Protein-coding gene prediction using prodigal" \
+about.home="https://github.com/hyattpd/Prodigal"
+
+ENV prodigal_version=2.6.3
+
+ENV PACKAGES="make curl wget parallel"
+
+RUN apt-get update \
+&& apt-get -y install $PACKAGES \
+&& curl -fsSL "https://github.com/hyattpd/Prodigal/archive/v${prodigal_version}.tar.gz" | tar -xz \
+&& make install -C Prodigal-${prodigal_version} \
+&& rm -r Prodigal-${prodigal_version}
+
+CMD ["prodigal", "--help"]
