@@ -1,0 +1,21 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="mafft" \
+software.version="7.490" \
+about.summary="Multiple sequence alignment  using mafft" \
+about.home="https://mafft.cbrc.jp/alignment/software/"
+
+ENV mafft_version=7.490
+
+ENV PACKAGES="curl wget parallel build-essential"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL "https://mafft.cbrc.jp/alignment/software/mafft-${mafft_version}-with-extensions-src.tgz" | tar xz \
+&& cd mafft-${mafft_version}-with-extensions/core \
+&& make clean && make && make install \
+&& cd / \
+&& rm -rf mafft-${mafft_version}-with-extensions
+
+CMD ["mafft"]
