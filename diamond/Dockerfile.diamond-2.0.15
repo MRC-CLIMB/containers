@@ -1,0 +1,22 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="diamond" \
+software.version="2.0.15" \
+about.summary="Sequence alignment using diamond" \
+about.home="https://github.com/bbuchfink/diamond"
+
+ENV diamond_version=2.0.15
+
+ENV PACKAGES="curl wget parallel g++ automake cmake zlib1g-dev"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL http://github.com/bbuchfink/diamond/archive/v${diamond_version}.tar.gz | tar -xz \
+&& cd diamond-${diamond_version} \
+&& mkdir build && cd build  \
+&& cmake .. \
+&& make && make install \
+&& cd / && rm -r diamond-${diamond_version}
+
+CMD ["diamond", "help"]
