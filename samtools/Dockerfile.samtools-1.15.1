@@ -1,0 +1,23 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="samtools" \
+software.version="1.15.1" \
+about.summary="Reading/writing/editing/indexing SAM/BAM/CRAM files with samtools" \
+about.home="https://github.com/samtools/samtools"
+
+ENV samtools_version=1.15.1 \
+htslib_version=1.15.1
+
+ENV PACKAGES="curl wget build-essential zlib1g-dev libncurses-dev libbz2-dev liblzma-dev libcurl4-openssl-dev libfindbin-libs-perl"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL https://github.com/samtools/samtools/archive/${samtools_version}.tar.gz | tar -xz \
+&& curl -fsSL https://github.com/samtools/htslib/releases/download/${htslib_version}/htslib-${htslib_version}.tar.bz2 | tar -xj \
+&& make -C samtools-${samtools_version} -j HTSDIR=../htslib-${htslib_version} \
+&& make -C samtools-${samtools_version} -j HTSDIR=../htslib-${htslib_version} prefix=/usr/local install \
+&& rm -r samtools-${samtools_version} \
+&& rm -r htslib-${htslib_version}
+
+CMD ["samtools", "--help"]
