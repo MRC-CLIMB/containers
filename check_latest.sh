@@ -1,12 +1,9 @@
 #!/bin/bash
 
 dirlist=`ls -d */`
-#dirlist=`ls $pwd | grep /`
 IFS=$'\n'
 
 for dir in $dirlist; do
-
-    echo "$dir"
 
     file=`ls -Art $dir | tail -n 1`
 
