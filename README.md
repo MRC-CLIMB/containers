@@ -1,4 +1,5 @@
 ![Build Status](https://github.com/CLIMB-BIG-DATA/containers/workflows/build-push-quay/badge.svg)
+![Build Status](https://github.com/CLIMB-BIG-DATA/containers/workflows/check-latest-version/badge.svg)
 # containers
 Dockerfiles for CLIMB-BIG-DATA. Built and pushed to quay.io using GitHub Actions
 
