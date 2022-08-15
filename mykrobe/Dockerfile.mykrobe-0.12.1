@@ -1,0 +1,30 @@
+FROM ubuntu:focal
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="mykrobe" \
+software.version="v0.12.1" \
+about.summary="Call antimicrobial resistance using mykrobe" \
+about.home="https://github.com/Mykrobe-tools/mykrobe"
+
+ENV mykrobe_version=0.12.1
+
+ENV PACKAGES="wget parallel curl rsync git build-essential r-base-core zlib1g-dev libncurses5-dev libz-dev liblzma-dev libbz2-dev" \
+PYTHON="python3.7 python3.7-dev python3-pip"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES $PYTHON \
+&& git clone --recursive -b geno_kmer_count https://github.com/phelimb/mccortex \
+&& make -C mccortex \
+&& mv mccortex /usr/local/bin \
+&& curl -fsSL mykrobe-${mykrobe_version}.tar.gz https://github.com/Mykrobe-tools/mykrobe/archive/v${mykrobe_version}.tar.gz | tar -xz \
+&& cd mykrobe-${mykrobe_version} \
+&& pip3 install -r requirements.txt \
+&& pip3 install . \
+&& ln -s /usr/local/bin/mccortex/bin/mccortex31 /usr/local/lib/python3.8/dist-packages/mykrobe/cortex/mccortex31 \
+&& mykrobe panels update_metadata \
+&& mykrobe panels update_species all \
+&& cd /
+
+ENV PATH ${PATH}:/usr/local/bin/mccortex/bin
+
+CMD ["mykrobe", "--help"]
