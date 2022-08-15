@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="bandage" \
-software.version="0.9.0" \
+software.version="v0.9.0" \
 about.summary="Interact with assembly graphs using bandage" \
 about.home="https://github.com/rrwick/Bandage"
 

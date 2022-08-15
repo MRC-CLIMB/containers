@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="multiqc" \
-software.version="1.12" \
+software.version="v1.12" \
 about.summary="Create a single report for multiple bioinformatics analyses using multiqc" \
 about.home="https://github.com/ewels/MultiQC"
 

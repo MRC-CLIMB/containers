@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="shovill" \
-software.version="1.1.0" \
+software.version="v1.1.0" \
 about.summary="Assemble bacterial isolate genomes from Illumina paired-end reads using shovill" \
 about.home="https://github.com/tseemann/shovill"
 

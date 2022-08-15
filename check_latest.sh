@@ -9,7 +9,7 @@ for dir in $dirlist; do
 
     repo=`grep "about.home" $dir$file | awk -F '[/"]' '{print $6}'`
 
-    version=v`grep "software.version" $dir$file | awk -F '["]' '{print $2}'`
+    version=`grep "software.version" $dir$file | awk -F '["]' '{print $2}'`
 
     owner=`grep "about.home" $dir$file | awk -F '[/]' '{print $4}'`
 

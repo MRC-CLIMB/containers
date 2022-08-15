@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="quast" \
-software.version="5.2.0" \
+software.version="quast_5.2.0" \
 about.summary="Perform quality assessment of genome assemblies using quast" \
 about.home="https://github.com/ablab/quast"
 

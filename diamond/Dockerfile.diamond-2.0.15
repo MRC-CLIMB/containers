@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="diamond" \
-software.version="2.0.15" \
+software.version="v2.0.15" \
 about.summary="Sequence alignment using diamond" \
 about.home="https://github.com/bbuchfink/diamond"
 

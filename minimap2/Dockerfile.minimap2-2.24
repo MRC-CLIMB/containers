@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="minimap2" \
-software.version="2.24" \
+software.version="v2.24" \
 about.summary="alignment for DNA or mRNA sequences using minimap2" \
 about.home="https://github.com/lh3/minimap2"
 

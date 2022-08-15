@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="bedtools" \
-software.version="2.30.0" \
+software.version="v2.30.0" \
 about.summary="Genome analysis using bedtools" \
 about.home="https://github.com/arq5x/bedtools2"
 
