@@ -9,7 +9,7 @@ about.home="https://github.com/Mykrobe-tools/mykrobe"
 ENV mykrobe_version=0.12.1
 
 ENV PACKAGES="wget parallel curl rsync git build-essential r-base-core zlib1g-dev libncurses5-dev libz-dev liblzma-dev libbz2-dev" \
-PYTHON="python3.7 python3.7-dev python3-pip"
+PYTHON="python3 python3-dev python3-pip"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES $PYTHON \
