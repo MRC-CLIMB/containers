@@ -5,7 +5,7 @@ IFS=$'\n'
 
 for dir in $dirlist; do
 
-    file=`ls -Art $dir | tail -n 1`
+    file=`ls -Av $dir | tail -n 1`
 
     repo=`grep "about.home" $dir$file | awk -F '[/"]' '{print $6}'`
 
