@@ -8,7 +8,7 @@ about.home="https://github.com/OpenGene/fastp"
 
 ENV fastp_version=0.23.2
 
-ENV PACKAGES="curl wget parallel build-essential zlib1g-dev"
+ENV PACKAGES="curl wget parallel build-essential zlib1g-dev libdeflate-dev libisal-dev"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
