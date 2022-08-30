@@ -1,0 +1,22 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="fastp" \
+software.version="v0.23.2" \
+about.summary="fastq preprocessing using fastp" \
+about.home="https://github.com/OpenGene/fastp"
+
+ENV fastp_version=0.23.2
+
+ENV PACKAGES="curl wget parallel build-essential zlib1g-dev"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL https://github.com/OpenGene/fastp/archive/v${fastp_version}.tar.gz | tar -xz \
+&& cd fastp-${fastp_version} \
+&& make \
+&& make install \
+&& cd .. \
+&& rm -r fastp-${fastp_version}
+
+CMD ["fastp", "--help"]
