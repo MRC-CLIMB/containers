@@ -22,7 +22,7 @@ ENV PYTHON="python3 python3-pip"
 RUN apt-get update \
 && apt-get install -y $PACKAGES $PYTHON
 
-RUN wget -O KMC.tar.gz https://github.com/refresh-bio/KMC/releases/download/v${KMC_version}/KMC${KMC_version}.linux.tar.gz \
+RUN wget -O KMC.tar.gz https://github.com/refresh-bio/KMC/releases/download/v${kmc_version}/KMC${kmc_version}.linux.tar.gz \
 && tar -xzf KMC.tar.gz -C /usr/local/bin
 
 RUN wget https://downloads.sourceforge.net/project/mummer/mummer/${mummer_version}/MUMmer${mummer_version}.tar.gz -O /usr/local/bin/MUMmer${mummer_version}.tar.gz \
@@ -49,10 +49,10 @@ RUN wget https://downloads.sourceforge.net/project/smalt/smalt-${smalt_version}-
 && make install \
 && cd /
 
-RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-${Trimmomatic_version}.zip \
-&& unzip Trimmomatic-${Trimmomatic_version}.zip \
+RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-${trimmomatic_version}.zip \
+&& unzip Trimmomatic-${trimmomatic_version}.zip \
 && echo "#!/bin/bash" >> trimmomatic \
-&& echo 'java -jar /Trimmomatic-${Trimmomatic_version}/trimmomatic-${Trimmomatic_version}.jar $@' >> /usr/local/bin/trimmomatic \
+&& echo 'java -jar /Trimmomatic-${trimmomatic_version}/trimmomatic-${trimmomatic_version}.jar $@' >> /usr/local/bin/trimmomatic \
 && chmod +x /usr/local/bin/trimmomatic
 
 RUN wget -O kraken2-${kraken2_version}.tar.gz https://github.com/DerrickWood/kraken2/archive/refs/tags/v${kraken2_version}.tar.gz \
@@ -70,6 +70,6 @@ ENV LANG en_GB.UTF-8 \
 LANGUAGE en_GB:en \
 LC_ALL en_GB.UTF-8
 
-ENV PATH ${PATH}:/usr/local/bin/MUMmer${mummer_version}:/usr/local/bin/KMC${KMC_version}.linux
+ENV PATH ${PATH}:/usr/local/bin/MUMmer${mummer_version}:/usr/local/bin/KMC${kmc_version}.linux
 
 CMD ["iva", "--help"]
