@@ -15,7 +15,7 @@ smalt_version=0.7.6 \
 trimmomatic_version=0.38 \
 kraken2_version=2.1.2
 
-ENV PACKAGES="wget curl parallel build-essential rsync unzip ncbi-blast+ r-base-core bioperl openjdk-11-jre locales locales-all"
+ENV PACKAGES="wget curl parallel build-essential zlib1g-dev libncurses-dev libbz2-dev liblzma-dev libcurl4-openssl-dev libfindbin-libs-perl rsync unzip ncbi-blast+ r-base-core bioperl openjdk-11-jre locales locales-all"
 
 ENV PYTHON="python3 python3-pip"
 
