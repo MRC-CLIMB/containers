@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 LABEL maintainer="pricea35@cardiff.ac.uk" \
 software="iva" \
@@ -15,7 +15,7 @@ smalt_version=0.7.6 \
 trimmomatic_version=0.38 \
 kraken2_version=2.1.2
 
-ENV PACKAGES="wget curl parallel build-essential zlib1g-dev libncurses-dev libbz2-dev liblzma-dev libcurl4-openssl-dev libfindbin-libs-perl rsync unzip ncbi-blast+ r-base-core bioperl openjdk-11-jre locales locales-all"
+ENV PACKAGES="wget curl parallel build-essential zlib1g-dev libncurses-dev libbz2-dev liblzma-dev libcurl4-openssl-dev libfindbin-libs-perl rsync unzip ncbi-blast+ r-base-core bioperl openjdk-11-jre locales locales-all smalt"
 
 ENV PYTHON="python3 python3-pip"
 
@@ -39,15 +39,6 @@ RUN curl -fsSL https://github.com/samtools/samtools/archive/${samtools_version}.
 && make -C samtools-${samtools_version} -j HTSDIR=../htslib-${htslib_version} prefix=/usr/local install \
 && rm -r samtools-${samtools_version} \
 && rm -r htslib-${htslib_version}
-
-RUN wget https://downloads.sourceforge.net/project/smalt/smalt-${smalt_version}-static.tar.gz -O /tmp/smalt-${smalt_version}-static.tar.gz \
-&& cd /tmp \
-&& tar -xzf smalt-${smalt_version}-static.tar.gz \
-&& cd smalt-${smalt_version} \
-&& ./configure \
-&& make \
-&& make install \
-&& cd /
 
 RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-${trimmomatic_version}.zip \
 && unzip Trimmomatic-${trimmomatic_version}.zip \
