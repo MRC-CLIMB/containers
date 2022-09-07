@@ -53,6 +53,8 @@ RUN wget -O kraken2-${kraken2_version}.tar.gz https://github.com/DerrickWood/kra
 && ./install_kraken2.sh /usr/local/bin \
 && cd ..
 
+ENV PATH ${PATH}:/usr/local/bin/MUMmer${mummer_version}:/usr/local/bin/KMC${kmc_version}.linux
+
 RUN pip3 install iva==${iva_version}
 
 RUN locale-gen en_GB.UTF-8
@@ -60,7 +62,5 @@ RUN locale-gen en_GB.UTF-8
 ENV LANG en_GB.UTF-8 \
 LANGUAGE en_GB:en \
 LC_ALL en_GB.UTF-8
-
-ENV PATH ${PATH}:/usr/local/bin/MUMmer${mummer_version}:/usr/local/bin/KMC${kmc_version}.linux
 
 CMD ["iva", "--help"]
