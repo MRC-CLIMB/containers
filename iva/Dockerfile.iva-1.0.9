@@ -23,7 +23,7 @@ RUN apt-get update \
 && apt-get install -y $PACKAGES $PYTHON
 
 RUN wget -O KMC.tar.gz https://github.com/refresh-bio/KMC/releases/download/v${kmc_version}/KMC${kmc_version}.linux.tar.gz \
-&& tar -xzf KMC.tar.gz -C /usr/local/bin
+&& tar -xzf KMC.tar.gz -C /usr/local/bin/KMC
 
 RUN wget https://downloads.sourceforge.net/project/mummer/mummer/${mummer_version}/MUMmer${mummer_version}.tar.gz -O /usr/local/bin/MUMmer${mummer_version}.tar.gz \
 && cd /usr/local/bin \
@@ -53,7 +53,7 @@ RUN wget -O kraken2-${kraken2_version}.tar.gz https://github.com/DerrickWood/kra
 && ./install_kraken2.sh /usr/local/bin \
 && cd ..
 
-ENV PATH ${PATH}:/usr/local/bin/MUMmer${mummer_version}:/usr/local/bin/KMC${kmc_version}.linux
+ENV PATH ${PATH}:/usr/local/bin/MUMmer${mummer_version}:/usr/local/bin/KMC/bin
 
 RUN pip3 install iva==${iva_version}
 
