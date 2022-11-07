@@ -1,0 +1,20 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="picard" \
+software.version="2.27.5" \
+about.summary="Tools for manipulating SAM/BAM/CRAM and VCF files" \
+about.home="https://github.com/broadinstitute/picard"
+
+ENV picard_version=2.27.5
+
+ENV PACKAGES="curl wget parallel openjdk-11-jdk"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& wget https://github.com/broadinstitute/picard/releases/download/${pengu_software_version_Picard}/picard.jar -O /usr/local/bin/picard.jar \
+&& rm *.tar.gz
+
+ENV PICARD_JAR=/usr/local/bin/picard.jar
+
+CMD ["java -jar picard.jar", "-h"]
