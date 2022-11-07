@@ -12,7 +12,7 @@ ENV PACKAGES="curl wget parallel openjdk-11-jdk"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
-&& wget https://github.com/broadinstitute/picard/releases/download/${pengu_software_version_Picard}/picard.jar -O /usr/local/bin/picard.jar \
+&& wget https://github.com/broadinstitute/picard/releases/download/${picard_version}/picard.jar -O /usr/local/bin/picard.jar \
 && rm *.tar.gz
 
 ENV PICARD_JAR=/usr/local/bin/picard.jar
