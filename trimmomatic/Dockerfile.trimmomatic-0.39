@@ -12,10 +12,10 @@ ENV PACKAGES="curl wget parallel openjdk-11-jdk unzip"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
-&& wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-${Trimmomatic_version}.zip \
-&& unzip Trimmomatic-${Trimmomatic_version}.zip \
+&& wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-${trimmomatic_version}.zip \
+&& unzip Trimmomatic-${trimmomatic_version}.zip \
 && echo "#!/bin/bash" >> trimmomatic \
-&& echo 'java -jar /Trimmomatic-${Trimmomatic_version}/trimmomatic-${Trimmomatic_version}.jar $@' >> /usr/local/bin/trimmomatic \
+&& echo 'java -jar /Trimmomatic-${trimmomatic_version}/trimmomatic-${trimmomatic_version}.jar $@' >> /usr/local/bin/trimmomatic \
 && chmod +x /usr/local/bin/trimmomatic
 
 CMD ["trimmomatic", "-version"]
