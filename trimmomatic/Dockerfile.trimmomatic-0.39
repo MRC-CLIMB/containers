@@ -1,0 +1,21 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="trimmomatic" \
+software.version="0.39" \
+about.summary="Trim adapaters from reads" \
+about.home="https://github.com/usadellab/Trimmomatic"
+
+ENV trimmomatic_version=0.39
+
+ENV PACKAGES="curl wget parallel openjdk-11-jdk unzip"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-${Trimmomatic_version}.zip \
+&& unzip Trimmomatic-${Trimmomatic_version}.zip \
+&& echo "#!/bin/bash" >> trimmomatic \
+&& echo 'java -jar /Trimmomatic-${Trimmomatic_version}/trimmomatic-${Trimmomatic_version}.jar $@' >> /usr/local/bin/trimmomatic \
+&& chmod +x /usr/local/bin/trimmomatic
+
+CMD ["trimmomatic", "-version"]
