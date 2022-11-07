@@ -1,0 +1,24 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="bamreadcount" \
+software.version="1.0.1" \
+about.summary="Count bases in BAM/CRAM files" \
+about.home="https://github.com/genome/bam-readcount"
+
+ENV bamreadcount_version=1.0.1
+
+ENV PACKAGES="curl wget build-essential cmake parallel"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL https://github.com/genome/bam-readcount/archive/v${bamreadcount_version}.tar.gz | tar -xz \
+&& cd bam-readcount-${bamreadcount_version} \
+&& mkdir build && cd build \
+&& cmake .. \
+&& make \
+&& mv bin/bam-readcount /usr/local/bin \
+&& cd / \
+&& rm -rf bam-readcount-${bamreadcount_version}
+
+CMD ["bam-readcount", "--help"]
