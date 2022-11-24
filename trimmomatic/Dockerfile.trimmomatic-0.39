@@ -18,4 +18,4 @@ RUN apt-get update \
 && echo 'java -jar /Trimmomatic-${trimmomatic_version}/trimmomatic-${trimmomatic_version}.jar $@' >> /usr/local/bin/trimmomatic \
 && chmod +x /usr/local/bin/trimmomatic
 
-CMD ["trimmomatic", "-version"]
+CMD ["/bin/bash", "trimmomatic", "-version"]
