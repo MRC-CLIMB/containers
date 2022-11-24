@@ -12,8 +12,10 @@ ENV PACKAGES="curl wget parallel openjdk-11-jdk"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
-&& wget https://github.com/broadinstitute/picard/releases/download/${picard_version}/picard.jar -O /usr/local/bin/picard.jar
+&& wget https://github.com/broadinstitute/picard/releases/download/${picard_version}/picard.jar -O /opt/picard.jar
 
-ENV PICARD_JAR=/usr/local/bin/picard.jar
+WORKDIR /opt
 
-CMD ["java -jar /usr/local/bin/picard.jar", "-h"]
+ENV PICARD_JAR=/opt/picard.jar
+
+CMD ["java", "-jar", "picard.jar", "-h"]
