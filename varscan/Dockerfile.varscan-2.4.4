@@ -1,0 +1,32 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="varscan" \
+software.version="2.4.4" \
+about.summary="Variant calling with VarScan" \
+about.home="https://github.com/dkoboldt/varscan"
+
+ENV samtools_version=1.16.1 \
+htslib_version=1.16 \
+varscan_version=2.4.4
+
+ENV PACKAGES="curl wget build-essential zlib1g-dev libncurses-dev libbz2-dev liblzma-dev libcurl4-openssl-dev libfindbin-libs-perl"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL https://github.com/samtools/samtools/archive/${samtools_version}.tar.gz | tar -xz \
+&& curl -fsSL https://github.com/samtools/htslib/releases/download/${htslib_version}/htslib-${htslib_version}.tar.bz2 | tar -xj \
+&& make -C samtools-${samtools_version} -j HTSDIR=../htslib-${htslib_version} \
+&& make -C samtools-${samtools_version} -j HTSDIR=../htslib-${htslib_version} prefix=/usr/local install \
+&& rm -r samtools-${samtools_version} \
+&& rm -r htslib-${htslib_version}
+
+RUN wget https://github.com/dkoboldt/varscan/releases/download/${varscan_version}/VarScan.v${varscan_version}.jar -O /opt/varscan.jar
+
+WORKDIR /opt
+
+ENV PATH=${PATH}:/opt
+
+ENV VARSCAN_JAR=/opt/varscan.jar
+
+CMD ["java", "-jar", "varscan.jar"]
