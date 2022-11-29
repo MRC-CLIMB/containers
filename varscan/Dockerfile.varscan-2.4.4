@@ -21,7 +21,7 @@ RUN apt-get update \
 && rm -r samtools-${samtools_version} \
 && rm -r htslib-${htslib_version}
 
-RUN wget https://github.com/dkoboldt/varscan/releases/download/${varscan_version}/VarScan.v${varscan_version}.jar -O /opt/varscan.jar
+RUN wget https://github.com/dkoboldt/varscan/raw/master/VarScan.v${varscan_version}.jar -O /opt/varscan.jar
 
 WORKDIR /opt
 
