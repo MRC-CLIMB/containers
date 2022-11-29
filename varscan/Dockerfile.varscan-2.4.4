@@ -10,7 +10,7 @@ ENV samtools_version=1.16.1 \
 htslib_version=1.16 \
 varscan_version=2.4.4
 
-ENV PACKAGES="curl wget build-essential zlib1g-dev libncurses-dev libbz2-dev liblzma-dev libcurl4-openssl-dev libfindbin-libs-perl"
+ENV PACKAGES="curl wget build-essential openjdk-11-jdk zlib1g-dev libncurses-dev libbz2-dev liblzma-dev libcurl4-openssl-dev libfindbin-libs-perl"
 
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
