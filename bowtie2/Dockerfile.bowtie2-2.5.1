@@ -1,0 +1,21 @@
+FROM debian:bullseye
+
+LABEL maintainer="pricea35@cardiff.ac.uk" \
+software="bowtie2" \
+software.version="v2.5.1" \
+about.summary="Align sequence reads with bowtie2" \
+about.home="https://github.com/BenLangmead/bowtie2"
+
+ENV bowtie2_version=2.5.1
+
+ENV PACKAGES="curl wget build-essential zlib1g-dev unzip"
+
+RUN apt-get update \
+&& apt-get install -y $PACKAGES \
+&& curl -fsSL https://sourceforge.net/projects/bowtie-bio/files/bowtie2/${bowtie2_version}/bowtie2-${bowtie2_version}-source.zip -o bowtie2-${bowtie2_version}-source.zip \
+&& unzip bowtie2-${bowtie2_version}-source.zip \
+&& make -C bowtie2-${bowtie2_version} prefix=/usr/local install \
+&& rm -r bowtie2-${bowtie2_version} \
+&& rm bowtie2-${bowtie2_version}-source.zip
+
+CMD ["bowtie2", "--help"]
