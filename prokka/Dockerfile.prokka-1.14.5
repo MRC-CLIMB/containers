@@ -13,6 +13,7 @@ ENV PACKAGES="libdatetime-perl libdigest-md5-perl default-jre bioperl build-esse
 RUN apt-get update \
 && apt-get install -y $PACKAGES \
 && yes | cpan List::Util \
+&& yes | cpan Bio::SearchIO::hmmer3 --force \
 && wget -O prokka-${prokka_version}.tar.gz https://github.com/tseemann/prokka/archive/v${prokka_version}.tar.gz \
 && tar -xzf prokka-${prokka_version}.tar.gz \
 && prokka-${prokka_version}/bin/prokka --setupdb \
